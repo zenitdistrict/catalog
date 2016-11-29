@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fontawesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="row-container">
+        <div class="content-container">
+            <h1>User list</h1>
+
+            <table class="main-table">
+                <thead>
+                <tr class="ajax-sort">
+                    <th>{{ knp_pagination_sortable(pagination, 'id', 'a.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Email', 'a.email') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Username', 'a.username') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Password', 'a.password') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Active', 'a.active') }}</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div class="count">
+                    {{ pagination.getTotalItemCount }}
+                </div>
+                {% for user in pagination %}
+                    <tr>
+                        <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.password }}</td>
+                        <td>{% if user.active %}Yes{% else %}No{% endif %}</td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('user_show', { 'id': user.id }) }}">show</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="create-new-entry-and-pokemation">
+
+                <div class="navigation content-paginator">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

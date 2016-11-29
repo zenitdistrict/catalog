@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block title %} Sign In! {% endblock %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="col-md-12">
+            <div id="form-holder">
+                <form action="{{ path('user_login_check') }}" method="post">
+                    <h1>Sign In</h1>
+
+                    <div id="login">
+                        <div>
+                            <input type="text" id="username" name="_username" class="input pass" value="{{ last_username }}" placeholder="{% trans %}Username{% endtrans %}"/>
+                        </div>
+
+                        <div>
+                            <input type="password" id="password" name="_password" class="input pass" placeholder="{% trans %}Password{% endtrans %}">
+                            <p class="forgot"><a href="{{ asset('forgotpassword') }}">Forgot your password?</a></p>
+                        </div>
+
+                        {% if error %}
+                            <div class="alert alert-danger">
+                                <i class="fa fa-warning"></i> {{ error.messageKey|trans(error.messageData, 'security') }}
+                            </div>
+                        {% endif %}
+
+                        <div>
+                            <button type="submit" class="input-button">Go!</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

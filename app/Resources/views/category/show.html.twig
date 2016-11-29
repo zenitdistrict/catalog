@@ -1,0 +1,57 @@
+{% extends '::base.html.twig' %}
+{% block title %}{{category.name}}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fontawesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container row-container">
+        <div class="row content-container">
+            <div class="col-md-3">
+                <div class="list-group">
+                    {% for category in categories if category.active %}
+                        {% if path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) == path('category_show', { 'id': category.id }) %}
+                        <a href="{{ path('category_show', { 'id': category.id }) }}" class="list-group-item selected-button">{{ category.name }}</a>
+                            {% else %}
+                                <a href="{{ path('category_show', { 'id': category.id }) }}" class="list-group-item unselected-button">{{ category.name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    {% for product in pagination %}
+                        <div class="col-sm-4 col-lg-4 col-md-4">
+                            <div class="thumbnail">
+                                <a href="{{ path('create_product_show', { 'id': product.id }) }}"><img src="{{ asset(['images/', product.image]|join) }}"/></a>
+                                <div class="caption">
+                                    <h4><a href="{{ path('create_product_show', { 'id': product.id }) }}">{{ product.name }}</a>
+                                    </h4>
+                                    <p>{{ product.description }}<a target="_blank" href="{{ path('create_product_show', { 'id': product.id }) }}">See more...</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <div class="navigation content-paginator">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+            <div class="container">
+                <!-- Footer -->
+
+
+            </div>
+            <!-- /.container -->
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}
+
+

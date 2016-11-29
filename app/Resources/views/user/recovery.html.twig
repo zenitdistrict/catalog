@@ -1,0 +1,31 @@
+{% extends '::base.html.twig' %}
+
+{% block title %} Sign Up! {% endblock %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="col-md-12">
+            <div id="form-holder">
+                <form action="#" method="post">
+                    <h1>New Password</h1>
+
+                    {{ form_widget(recoveryForm) }}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="{{ asset('js/app.js') }}"></script>
+
+{% endblock %}

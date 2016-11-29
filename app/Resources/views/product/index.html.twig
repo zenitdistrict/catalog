@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fontawesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="row-container">
+        <div class="content-container">
+    <h1>Product list</h1>
+
+    <table class="main-table">
+        <thead>
+            <tr class="ajax-sort">
+                <th>{{ knp_pagination_sortable(pagination, 'id', 'a.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Name', 'a.name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Description', 'a.description') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Date', 'a.date') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Updatedate', 'a.update_date') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Active', 'a.active') }}</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <div class="count">
+            {{ pagination.getTotalItemCount }}
+        </div>
+        {% for product in pagination %}
+            <tr>
+                <td><a href="{{ path('create_product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{% if product.date %}{{ product.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if product.updateDate %}{{ product.updateDate|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if product.active %}Yes{% else %}No{% endif %}</td>
+                <td>{{ product.image }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('create_product_show', { 'id': product.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('create_product_edit', { 'id': product.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="create-new-entry-and-pokemation">
+        <a href="{{ path('create_product_new') }}">Create a new entry</a>
+        <div class="navigation content-paginator">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+            </div>
+        </div>
+
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="col-md-12">
+        <div id="form-holder">
+    <h1>Category edit</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Edit" class="input-button"/>
+    {{ form_end(edit_form) }}
+
+    <ul>
+        <li>
+            {{ form_start(delete_form) }}
+            <input type="submit" value="Delete" class="input-button">
+            {{ form_end(delete_form) }}
+
+        </li>
+        <li>
+            <a href="{{ path('category_index') }}" class="unselected-button">Back to the list</a>
+        </li>
+    </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="col-md-12">
+        <div id="form-holder">
+    <h1>Product edit</h1>
+    <img src="{{ asset(['images/', image]|join) }}" class="edit-image"/>
+
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Edit" />
+    {{ form_row(edit_form.image) }}
+    {{ form_end(edit_form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('create_product_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

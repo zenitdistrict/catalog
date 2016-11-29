@@ -1,0 +1,43 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+# basic routes
+homepage:
+    path: /
+    defaults: { _controller: AppBundle:Home:index }
+
+user_login_check:
+    path: /login_check
+
+user_logout:
+    path: /logout
+
+create_product:
+    path: /create_product
+
+list:
+    path: /list
+    defaults: { _controller: AppBundle:Home:list }
+
+login:
+    path: /login
+    defaults: { _controller: AppBundle:User:login }
+
+register:
+    path: /register
+    defaults: { _controller: AppBundle:User:register}
+
+forgotpassword:
+    path: /forgotpassword
+    defaults: { _controller: AppBundle:User:forgotpassword }
+
+user_question:
+    path: /question
+    defaults: { _controller: AppBundle:User:question }
+
+user_recovery:
+    path: /recovery/{token}
+    defaults: { _controller: AppBundle:User:recovery }
+
+

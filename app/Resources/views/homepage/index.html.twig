@@ -1,0 +1,81 @@
+{% extends '::base.html.twig' %}
+{% block title %}Shop Homepage{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fontawesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+
+{% block body %}
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row row-container">
+            <div class="col-md-3">
+                <div class="list-group">
+                    {% for category in categories if category.active%}
+                        <a href="{{ path('category_show', { 'id': category.id }) }}" class="list-group-item unselected-button">{{ category.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row carousel-holder">
+                    <div class="col-md-12">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img class="slide-image" src="{{ asset('images/1.jpg') }}" alt="">
+                                </div>
+                                <div class="item">
+                                    <img class="slide-image" src="images/2.jpg" alt="">
+                                </div>
+                                <div class="item">
+                                    <img class="slide-image" src="images/3.jpg" alt="">
+                                </div>
+                            </div>
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-container row">
+                    {% for product in pagination if (product.active and is_granted('ROLE_USER')  == true) %}
+                        <div class="col-sm-4 col-lg-4 col-md-4">
+                            <div class="thumbnail">
+                                <a href="{{ path('create_product_show', { 'id': product.id }) }}"><img src="{{ asset(['images/', product.image]|join) }}"/></a>
+                                <div class="caption">
+                                    <h4><a href="{{ path('create_product_show', { 'id': product.id }) }}">{{ product.name }}</a>
+                                    </h4>
+                                    <p>{{ product.description }}<a target="_blank" href="{{ path('create_product_show', { 'id': product.id }) }}">See more...</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% if ( is_granted('ROLE_USER')  == true) %}
+                    <div class="navigation content-paginator">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                    {% endif %}
+                    {% if is_granted('ROLE_USER') == false %}
+                        <h1>Login to see the stuff</h1>
+                    {% endif %}
+                </div>
+                <!-- /.container -->
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+{% endblock %}
+
+
+
+
+

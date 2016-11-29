@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fontawesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="row-container">
+        <div class="content-container">
+            <h1>Category list</h1>
+
+            <table class="main-table">
+                <thead>
+                <tr class="ajax-sort">
+                    <th>{{ knp_pagination_sortable(pagination, 'id', 'a.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Name', 'a.name') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'Active', 'a.active') }}</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div class="count">
+                    {{ pagination.getTotalItemCount }}
+                </div>
+                {% for category in pagination %}
+                    <tr>
+                        <td><a href="{{ path('category_show', { 'id': category.id }) }}">{{ category.id }}</a></td>
+                        <td>{{ category.name }}</td>
+                        <td>{% if category.active %}Yes{% else %}No{% endif %}</td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('category_show', { 'id': category.id }) }}">show</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('category_edit', { 'id': category.id }) }}">edit</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="create-new-entry-and-pokemation">
+                <a href="{{ path('category_new') }}">Create a new entry</a>
+                <div class="navigation content-paginator">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

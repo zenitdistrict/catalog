@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fontawesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+{% endblock %}
+
+{% block body %}
+    <div class="product">
+        <h1 class="name">{{ product.name }}</h1>
+        <img src="{{ asset(['images/', product.image]|join) }}"/>
+        <p class="description">{{ product.description }}</p>
+    </div>
+{% if is_granted('ROLE_MODERATOR') == true %}
+    <hr/>
+    <ul class="edit-panel">
+        <li>
+            <a href="{{ path('create_product_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('create_product_edit', { 'id': product.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete" class="btn btn-danger">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endif %}
+{% endblock %}
